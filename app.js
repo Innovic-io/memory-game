@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const numberOfCubes = 36;
   const cardFlipped = [];
-  let isPlaying = true;
 
   function startTimer() {
   }
@@ -95,11 +94,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function restartCard(card) {
-
+    setTimeout(() => {
+      card.style.background = "red";
+      card.innerText = "*";
+    }, 500);
   }
 
   function checkIfGameIsDone() {
-
+    return document.getElementsByClassName("resolved").length === numberOfCubes;
   }
 
   function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
@@ -112,9 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cardFlipped[0].innerText === cardFlipped[1].innerText) {
         markCardAsResolved(cardFlipped[0]);
         markCardAsResolved(cardFlipped[1]);
-        return true;
       } else {
-
+        restartCard(cardFlipped[0]);
+        restartCard(cardFlipped[1]);
       }
 
       cardFlipped.length = 0;
@@ -128,9 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       appendCustomStylesToElement(card, cube);
       appendClickEventOnCube(card, i);
-
-
-      card.classList.add(tileValues[i])
 
       gameElement.appendChild(card);
     }
