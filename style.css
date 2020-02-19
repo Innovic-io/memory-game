@@ -1,3 +1,9 @@
 body {
-    background: gray;
+    background: #f4f4f4;
+}
+
+#game {
+    margin: 0 auto;
+    border-left: 1px dashed #ccc;
+    border-right: 1px dashed #ccc;
 }
