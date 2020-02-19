@@ -13,3 +13,9 @@ body {
     border-left: 1px dashed #ccc;
     border-right: 1px dashed #ccc;
 }
+
+.box {
+  box-shadow: 0px 0px 2px 1px rgba(255,255,255,0.75);
+  text-align: center;
+  color: white;
+}

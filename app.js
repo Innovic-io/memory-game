@@ -1,91 +1,94 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const numberOfCubes = 36;
+  const numberOfCubes = 36;
 
-    function calculateGameContainerWidthBasedOnHeight() {
+  function calculateGameContainerWidthBasedOnHeight() {
 
-        return {
-            width: window.innerHeight,
-            height: window.innerHeight
-        }
+    return {
+      width: window.innerHeight,
+      height: window.innerHeight
+    }
+  }
+
+  function calculateWidthAndHeightForCubes(width, height, numberOfCubes) {
+    const widthOfOneCube = width / Math.sqrt(numberOfCubes);
+    const heightOfOneCube = height / Math.sqrt(numberOfCubes);
+
+    return {
+      width: widthOfOneCube,
+      height: heightOfOneCube
+    }
+  }
+
+  function calculateCubeFontSize(cubeHeight) {
+    const fontSize = cubeHeight / 1.5;
+
+    return fontSize;
+  }
+
+  function generateRandomColor(numberOfCubes) {
+    const colorMap = new Map();
+
+    for (let i = 0; i < (numberOfCubes / 2); i++) {
+      const randomColor = '#' + Math.random().toString(16).substr(-6);
+      colorMap.set(i, randomColor);
     }
 
-    function calculateWidthAndHeightForCubes(width, height, numberOfCubes) {
-        const widthOfOneCube = width / Math.sqrt(numberOfCubes);
-        const heightOfOneCube = height / Math.sqrt(numberOfCubes);
+    return colorMap;
+  }
 
-        return {
-            width: widthOfOneCube,
-            height: heightOfOneCube
-        }
+  function generateArrayOfTileValues(numberOfCubes) {
+    const arrayToRepeat = [];
+    for (let i = 1; i <= numberOfCubes / 2; i++) {
+      arrayToRepeat.push(i);
     }
 
-    function calculateCubeFontSize(cubeHeight) {
-        const fontSize = cubeHeight / 1.5;
+    const arrayOfNumbers = [].concat(...Array(2).fill(arrayToRepeat));
+    return arrayOfNumbers.sort(() => Math.random() - 0.5);
+  }
 
-        return fontSize;
+  const gameContainer = calculateGameContainerWidthBasedOnHeight();
+  const cube = calculateWidthAndHeightForCubes(gameContainer.width, gameContainer.height, numberOfCubes);
+  const fontSize = calculateCubeFontSize(cube.height);
+  const colors = generateRandomColor(numberOfCubes);
+  const tileValues = generateArrayOfTileValues(numberOfCubes);
+
+  const gameElement = document.getElementById("game");
+
+  gameElement.style.width = gameContainer.width + "px";
+  gameElement.style.height = gameContainer.height + "px";
+
+  // Milana
+  function appendCustomStylesToElement(card, cube) {
+
+  }
+
+  // Milana
+  function appendClickEventOnCube(cube) {
+
+  }
+
+  function generateCubsInGameElement(cube, numberOfCubes) {
+
+    for (let i = 0; i < numberOfCubes; i++) {
+      const card = document.createElement("div");
+      card.innerText = "*";
+      card.classList.add("box");
+      card.style.fontSize = fontSize + "px";
+      card.style.lineHeight = cube.height + "px";
+
+      card.style.background = "red";
+      card.style.height = cube.height + "px";
+      card.style.width = cube.width + "px";
+      card.style.display = "inline-block";
+
+      appendCustomStylesToElement(card, cube);
+      appendClickEventOnCube(cube);
+
+      gameElement.appendChild(card);
     }
+  }
 
-    function generateRandomColor(numberOfCubes) {
-
-        const colorArray = [];
-
-        for (let i = 0; i < (numberOfCubes / 2); i++) {
-            const randomColor = '#' + Math.random().toString(16).substr(-6);
-            colorArray.push(randomColor);
-        }
-        const colorMap = new Map();
-
-        for (let i = 0; i < (colorArray.length); i++) {
-            colorMap.set(i, colorArray[i]);
-        }
-        return colorMap;
-    }
-
-    const colors = generateRandomColor(numberOfCubes);
-    console.log(colors);
-
-    function generateArrayOfTileValues(numberOfCubes) {
-        // Return array with length of numberOfCubes, where we show duplicate numbers to numberOfCubes / 2
-        const arrayToRepeat = [];
-        for (let i = 1; i <= numberOfCubes / 2; i++) {
-            arrayToRepeat.push(i);
-        }
-        const arrayOfNumbers = [].concat(...Array(2).fill(arrayToRepeat));
-        return arrayOfNumbers.sort(() => Math.random() - 0.5);
-    }
-
-    const gameContainer = calculateGameContainerWidthBasedOnHeight();
-    const cube = calculateWidthAndHeightForCubes(gameContainer.width, gameContainer.height, numberOfCubes);
-    const fontSize = calculateCubeFontSize(cube.height);
-    const tileValues = generateArrayOfTileValues(numberOfCubes);
-    // document.write(tileValues);
-
-    const gameElement = document.getElementById("game");
-
-    gameElement.style.width = gameContainer.width + "px";
-    gameElement.style.height = gameContainer.height + "px";
-
-    function generateCubsInGameElement(cube, numberOfCubes) {
-
-        for (let i = 0; i < numberOfCubes; i++) {
-            const card = document.createElement("div");
-            card.innerText = i.toString();
-
-            // Milana
-            // Calculate font size and place text in middle
-
-            card.style.background = "red";
-            card.style.height = cube.height + "px";
-            card.style.width = cube.width + "px";
-            card.style.display = "inline-block";
-
-            gameElement.appendChild(card);
-        }
-    }
-
-    generateCubsInGameElement(cube, numberOfCubes);
-
-
+  generateCubsInGameElement(cube, numberOfCubes);
 });
 
 
