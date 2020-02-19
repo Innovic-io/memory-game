@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const numberOfCubes = 25;
+    const numberOfCubes = 36;
 
     // Vladana
     function calculateGameContainerWidthBasedOnHeight() {
-        const height = window.innerHeight;
-        //document.write(height);
+        const height = window.innerHeight
         return {
             width: height,
             height: height
@@ -12,11 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // Milana
     function calculateWidthAndHeightForCubes(width, height, numberOfCubes) {
+        const widthOfOneCube = width / Math.sqrt(numberOfCubes);
+        const heightOfOneCube = height / Math.sqrt(numberOfCubes);
+
 
         return {
-            width: 100,
-            height: 100
+            width: widthOfOneCube,
+            height: heightOfOneCube
         }
+
     }
 
     const gameContainer = calculateGameContainerWidthBasedOnHeight();
