@@ -1,17 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   const numberOfCubes = 36;
 
-  function calculateGameContainerWidthBasedOnHeight() {
-
-    return {
-      width: window.innerHeight,
-      height: window.innerHeight
+    // Vladana
+    function calculateGameContainerWidthBasedOnHeight() {
+        const height = window.innerHeight;
+      //  document.write(height);
+       return {
+            width: height,
+            height: height
+        }
     }
-  }
-
-  function calculateWidthAndHeightForCubes(width, height, numberOfCubes) {
-    const widthOfOneCube = width / Math.sqrt(numberOfCubes);
-    const heightOfOneCube = height / Math.sqrt(numberOfCubes);
+    // Milana
+    function calculateWidthAndHeightForCubes(width, height, numberOfCubes) {
+        const widthOfOneCube = width / Math.sqrt(numberOfCubes);
+        const heightOfOneCube = height / Math.sqrt(numberOfCubes);
 
     return {
       width: widthOfOneCube,
@@ -40,28 +42,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const gameElement = document.getElementById("game");
 
-  gameElement.style.width = gameContainer.width + "px";
-  gameElement.style.height = gameContainer.height + "px";
+    gameElement.style.width = gameContainer.width + "px";
+    gameElement.style.height = gameContainer.height + "px";
+
 
   function generateCubsInGameElement(cube, numberOfCubes) {
 
-    for (let i = 0; i < numberOfCubes; i++) {
-      const card = document.createElement("div");
-      card.innerText = i.toString();
+for( let i =0; i<numberOfCubes; i++) {
+    const card = document.createElement("div");
+    card.innerText = "This is a paragraph";
+    card.style.background = "red";
+    card.style.height = cube.height +"px";
+    card.style.width = cube.width +"px";
+    card.style.display=  "inline-block";
+   // card.style.border= "0.1px dashed black";
 
-      // Milana
-      // Calculate font size and place text in middle
-
-      card.style.background = "red";
-      card.style.height = cube.height + "px";
-      card.style.width = cube.width + "px";
-      card.style.display = "inline-block";
-
-      gameElement.appendChild(card);
+    gameElement.appendChild(card);
+}
     }
-  }
-
-  generateCubsInGameElement(cube, numberOfCubes);
+     generateCubsInGameElement(cube, numberOfCubes);
 
 
 
