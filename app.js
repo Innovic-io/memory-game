@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         flipCube(card, index);
 
         appendToFlippedArrayAndCheckIfTheyAreSame(card);
+        checkIfGameIsDone();
       }
     });
   }
@@ -90,6 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function restartCard(card) {
+
+  }
+
+  function checkIfGameIsDone() {
 
   }
 
