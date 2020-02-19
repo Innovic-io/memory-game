@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const numberOfCubes = 36;
-  const cardFlipped = new Array(2);
+  const cardFlipped = [];
 
   function calculateGameContainerWidthBasedOnHeight() {
 
@@ -68,7 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function appendClickEventOnCube(card, index) {
     card.addEventListener('click', () => {
-      flipCube(card, index);
+
+      if(!card.classList.contains("resolved")) {
+        flipCube(card, index);
+
+        appendToFlippedArrayAndCheckIfTheyAreSame(card);
+      }
     });
   }
 
@@ -81,28 +86,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function markCardAsResolved(card) {
+    card.classList.add("resolved");
+  }
+
+  function restartCard(card) {
 
   }
 
   function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
-
     if (cardFlipped.length === 0) {
       cardFlipped.push(card);
       return;
     }
     if (cardFlipped.length === 1) {
       cardFlipped.push(card);
-
       if (cardFlipped[0].innerText === cardFlipped[1].innerText) {
-        console.log(true);
+        markCardAsResolved(cardFlipped[0]);
+        markCardAsResolved(cardFlipped[1]);
         return true;
-      }
-      console.log(false);
-      return false;
-    } else {
-      cardFlipped.length = 0;
-    }
+      } else {
 
+      }
+
+      cardFlipped.length = 0;
+      return false;
+    }
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
@@ -111,6 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       appendCustomStylesToElement(card, cube);
       appendClickEventOnCube(card, i);
+
+
+      card.classList.add(tileValues[i])
 
       gameElement.appendChild(card);
     }

@@ -22,3 +22,7 @@ body {
   display: inline-block;
   cursor: pointer;
 }
+
+.resolved  {
+  cursor: not-allowed;
+}
