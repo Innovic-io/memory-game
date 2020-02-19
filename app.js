@@ -86,6 +86,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
 
+    if (cardFlipped.length === 0) {
+      cardFlipped.push(card);
+      return;
+    }
+    if (cardFlipped.length === 1) {
+      cardFlipped.push(card);
+
+      if (cardFlipped[0].innerText === cardFlipped[1].innerText) {
+        console.log(true);
+        return true;
+      }
+      console.log(false);
+      return false;
+    } else {
+      cardFlipped.length = 0;
+    }
+
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
