@@ -20,8 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function calculateCubeFontSize(cubeHeight) {
+    const fontSize = cubeHeight / 1.5;
 
-    return 12312312;
+    return fontSize;
   }
 
   // Vladana
@@ -49,10 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
       card.innerText = i.toString();
-
-      // Milana
-      // Calculate font size and place text in middle
-
+      card.style.fontSize = fontSize + "px";
+      card.style.textAlign = "center";
+      card.style.lineHeight = cube.height + "px";
       card.style.background = "red";
       card.style.height = cube.height + "px";
       card.style.width = cube.width + "px";
