@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSize = calculateCubeFontSize(cube.height);
   const colors = generateRandomColor(numberOfCubes);
   const tileValues = generateArrayOfTileValues(numberOfCubes);
-
+  console.log(tileValues);
   const gameElement = document.getElementById("game");
 
   gameElement.style.width = gameContainer.width + "px";
@@ -64,6 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Milana
   function appendClickEventOnCube(cube) {
+
+  }
+
+  function flipCube(card, cardIndex) {
 
   }
 
