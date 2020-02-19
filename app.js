@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Vladana
     function calculateGameContainerWidthBasedOnHeight() {
-        const height = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
+        const height = window.innerHeight;
+        //document.write(height);
         return {
             width: height,
             height: height
