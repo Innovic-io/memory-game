@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Vladana
     function calculateGameContainerWidthBasedOnHeight() {
-        // window.innerWidth
-        // window.innerHeight
+        const height = window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight;
         return {
-            width: 100,
-            height: 100
+            width: height,
+            height: height
         }
     }
-
     // Milana
     function calculateWidthAndHeightForCubes(width, height, numberOfCubes) {
 
