@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const numberOfCubes = 36;
+  const cardFlipped = new Array(2);
 
   function calculateGameContainerWidthBasedOnHeight() {
 
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSize = calculateCubeFontSize(cube.height);
   const colors = generateRandomColor(numberOfCubes);
   const tileValues = generateArrayOfTileValues(numberOfCubes);
-  console.log(tileValues);
+
   const gameElement = document.getElementById("game");
 
   gameElement.style.width = gameContainer.width + "px";
@@ -68,6 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function flipCube(card, cardIndex) {
+
+  }
+
+  function markCardAsResolved(card) {
+
+  }
+
+  function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
 
   }
 
