@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function generateRandomColor(numberOfCubes) {
     const colorMap = new Map();
 
-    for (let i = 0; i < (numberOfCubes / 2); i++) {
+    for (let i = 1; i <= (numberOfCubes / 2); i++) {
       const randomColor = '#' + Math.random().toString(16).substr(-6);
       colorMap.set(i, randomColor);
     }
@@ -59,30 +59,25 @@ document.addEventListener("DOMContentLoaded", () => {
   function appendCustomStylesToElement(card, cube) {
     card.innerText = "*";
     card.classList.add("box");
+
     card.style.fontSize = fontSize + "px";
     card.style.lineHeight = cube.height + "px";
-    card.style.background = "red";
     card.style.height = cube.height + "px";
     card.style.width = cube.width + "px";
-
   }
 
-  function appendClickEventOnCube(cube) {
-
-    let divs = [...document.getElementsByClassName("box")];
-
-    divs.forEach(cube => {
-      cube.addEventListener('click', () => {
-        console.log(divs.indexOf(cube) + 1);
-        //console.log(divs)
-
-      });
+  function appendClickEventOnCube(card, index) {
+    card.addEventListener('click', () => {
+      flipCube(card, index);
     });
-
   }
 
   function flipCube(card, cardIndex) {
+    const value = tileValues[cardIndex];
+    const color = colors.get(value);
 
+    card.style.background = color;
+    card.innerText = value.toString();
   }
 
   function markCardAsResolved(card) {
@@ -94,11 +89,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
-
-    for (let i = 1; i <= numberOfCubes; i++) {
+    for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
+
       appendCustomStylesToElement(card, cube);
-      appendClickEventOnCube(cube);
+      appendClickEventOnCube(card, i);
+
       gameElement.appendChild(card);
     }
   }
