@@ -20,22 +20,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function calculateCubeFontSize(cubeHeight) {
-    const fontSize = cubeHeight / 1.5;
+        const fontSize = cubeHeight / 1.5;
 
         return fontSize;
     }
 
-    // Vladana
     function generateRandomColor(numberOfCubes) {
-        // Return map where keys are from 0 to 17, and values are random colors
+
+        const colorArray = [];
+
+        for (let i = 0; i < (numberOfCubes / 2); i++) {
+            const randomColor = '#' + Math.random().toString(16).substr(-6);
+            colorArray.push(randomColor);
+        }
+        const colorMap = new Map();
+
+        for (let i = 0; i < (colorArray.length); i++) {
+            colorMap.set(i, colorArray[i]);
+        }
+        return colorMap;
     }
 
-
-    // Kristina
+    const colors = generateRandomColor(numberOfCubes);
+    console.log(colors);
 
     function generateArrayOfTileValues(numberOfCubes) {
         // Return array with length of numberOfCubes, where we show duplicate numbers to numberOfCubes / 2
-
         const arrayToRepeat = [];
         for (let i = 1; i <= numberOfCubes / 2; i++) {
             arrayToRepeat.push(i);
@@ -48,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cube = calculateWidthAndHeightForCubes(gameContainer.width, gameContainer.height, numberOfCubes);
     const fontSize = calculateCubeFontSize(cube.height);
     const tileValues = generateArrayOfTileValues(numberOfCubes);
-   // document.write(tileValues);
+    // document.write(tileValues);
 
     const gameElement = document.getElementById("game");
 
@@ -60,9 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < numberOfCubes; i++) {
             const card = document.createElement("div");
             card.innerText = i.toString();
-card.style.fontSize = fontSize + "px";
-            card.style.textAlign = "center";
-            card.style.lineHeight = cube.height + "px";
+
+            // Milana
+            // Calculate font size and place text in middle
 
             card.style.background = "red";
             card.style.height = cube.height + "px";
@@ -74,7 +84,6 @@ card.style.fontSize = fontSize + "px";
     }
 
     generateCubsInGameElement(cube, numberOfCubes);
-
 
 
 });
