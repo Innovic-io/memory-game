@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const numberOfCubes = 36;
   const cardFlipped = [];
+  let isPlaying = true;
+
+  function startTimer() {
+    while (isPlaying) {
+
+    }
+  }
 
   function calculateGameContainerWidthBasedOnHeight() {
 
@@ -133,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   generateCubsInGameElement(cube, numberOfCubes);
+  startTimer();
 });
 
 
