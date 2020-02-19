@@ -4,9 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let isPlaying = true;
 
   function startTimer() {
-    while (isPlaying) {
-
-    }
   }
 
   function calculateGameContainerWidthBasedOnHeight() {
