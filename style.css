@@ -3,6 +3,8 @@ body {
 }
 
 #game {
+
+    background: lightseagreen;
     margin: 0 auto;
     border-left: 1px dashed #ccc;
     border-right: 1px dashed #ccc;
