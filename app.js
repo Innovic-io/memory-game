@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Return map where keys are from 0 to 17, and values are random colors
   }
 
+
   // Kristina
   function generateArrayOfTileValues(numberOfCubes) {
     // Return array with length of numberOfCubes, where we show duplicate numbers to numberOfCubes / 2
