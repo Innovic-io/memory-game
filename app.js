@@ -21,9 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function calculateCubeFontSize(cubeHeight) {
-    const fontSize = cubeHeight / 1.5;
-
-    return fontSize;
+    return cubeHeight / 1.5;
   }
 
   function generateRandomColor(numberOfCubes) {
@@ -58,13 +56,28 @@ document.addEventListener("DOMContentLoaded", () => {
   gameElement.style.width = gameContainer.width + "px";
   gameElement.style.height = gameContainer.height + "px";
 
-  // Milana
   function appendCustomStylesToElement(card, cube) {
+    card.innerText = "*";
+    card.classList.add("box");
+    card.style.fontSize = fontSize + "px";
+    card.style.lineHeight = cube.height + "px";
+    card.style.background = "red";
+    card.style.height = cube.height + "px";
+    card.style.width = cube.width + "px";
 
   }
 
-  // Milana
   function appendClickEventOnCube(cube) {
+
+    let divs = [...document.getElementsByClassName("box")];
+
+    divs.forEach(cube => {
+      cube.addEventListener('click', () => {
+        console.log(divs.indexOf(cube) + 1);
+        //console.log(divs)
+
+      });
+    });
 
   }
 
@@ -82,21 +95,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function generateCubsInGameElement(cube, numberOfCubes) {
 
-    for (let i = 0; i < numberOfCubes; i++) {
+    for (let i = 1; i <= numberOfCubes; i++) {
       const card = document.createElement("div");
-      card.innerText = "*";
-      card.classList.add("box");
-      card.style.fontSize = fontSize + "px";
-      card.style.lineHeight = cube.height + "px";
-
-      card.style.background = "red";
-      card.style.height = cube.height + "px";
-      card.style.width = cube.width + "px";
-      card.style.display = "inline-block";
-
       appendCustomStylesToElement(card, cube);
       appendClickEventOnCube(cube);
-
       gameElement.appendChild(card);
     }
   }
