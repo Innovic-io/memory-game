@@ -45,3 +45,11 @@ body {
   font-family: 'Share Tech Mono';
 }
 
+#numberToGuess {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 25pt;
+  font-family: 'Share Tech Mono';
+}
+
