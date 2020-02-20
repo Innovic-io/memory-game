@@ -35,10 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let timer = setInterval(function () {
       const currentTime = new Date();
       seconds--;
-      document.getElementById("countdown").innerHTML = "00:00:" +
-        (seconds < 10 ? "0" + seconds : seconds);
-      if (seconds <= 0)
+      document.getElementById("countdown").innerHTML = "00:00:" + (seconds < 10 ? "0" + seconds : seconds);
+      if (seconds <= 0) {
         clearInterval(timer);
+      }
     }, 1000);
   }
 
@@ -132,10 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
     card.innerText = value.toString();
   }
 
-  function flipAllCards(card) {
+  function flipAllCards() {
     setTimeout(() => {
-      card.style.background = "lightseagreen";
-      card.innerText = "?";
+      // card.style.background = "lightseagreen";
+      // card.innerText = "?";
     }, 10000);
   }
 
@@ -174,10 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
       appendCustomStylesToElement(card, cube, i);
-      gameElement.appendChild(card);
-      flipAllCards(card);
-    }
 
+      gameElement.appendChild(card);
+    }
   }
 
   const gameContainer = calculateGameContainerWidthBasedOnHeight();
@@ -195,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   start();
   startTimer();
   countdown();
+  flipAllCards();
 });
 
 
