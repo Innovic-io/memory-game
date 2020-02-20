@@ -1,9 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
   const numberOfCubes = 36;
   const cardFlipped = [];
-  const cardArray = [];
+  let isPlaying = true;
+  let startDate = null;
+
+  function start() {
+    if (isPlaying === true) {
+      startDate = new Date();
+    }
+    setInterval(startTimer, 1);
+  }
+
+  start();
 
   function startTimer() {
+    const currentTime = new Date(),
+      timeElapsed = new Date(currentTime - startDate),
+      hour = timeElapsed.getUTCHours(),
+      min = timeElapsed.getUTCMinutes(),
+      sec = timeElapsed.getUTCSeconds(),
+      ms = timeElapsed.getUTCMilliseconds();
+
+    document.getElementById("timer").innerHTML =
+      (hour > 9 ? hour : "0" + hour) + ":" +
+      (min > 9 ? min : "0" + min) + ":" +
+      (sec > 9 ? sec : "0" + sec) + "." +
+      (ms > 99 ? ms : ms > 9 ? "0" + ms : "00" + ms);
+
   }
 
   function calculateGameContainerWidthBasedOnHeight() {
@@ -122,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardFlipped.push(card);
       return;
     }
-    if (cardFlipped.length === 1 && cardFlipped.indexOf(card) === -1) {
+    if (cardFlipped.length === 1) {
       cardFlipped.push(card);
       if (cardFlipped[0].innerText === cardFlipped[1].innerText) {
         markCardAsResolved(cardFlipped[0]);
@@ -140,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function generateCubsInGameElement(cube, numberOfCubes) {
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
-      card.classList.add(tileValues[i]);
+
       appendCustomStylesToElement(card, cube);
       appendClickEventOnCube(card, i);
 

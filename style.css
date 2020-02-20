@@ -12,6 +12,7 @@ body {
     margin: 0 auto;
     border-left: 1px dashed #ccc;
     border-right: 1px dashed #ccc;
+
 }
 
 .box {
@@ -25,4 +26,13 @@ body {
 
 .resolved  {
   cursor: not-allowed;
+}
+#timer {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  font-size: 25pt;
+  font-family: 'Share Tech Mono';
+
 }
