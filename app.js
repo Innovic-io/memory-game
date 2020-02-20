@@ -1,17 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const numberOfCubes = 36;
+  const numberOfCubes = 64;
   const cardFlipped = [];
-  let isPlaying = true;
   let startDate = null;
+  let interval;
 
   function start() {
-    if (isPlaying === true) {
-      startDate = new Date();
-    }
-    setInterval(startTimer, 1);
+    startDate = new Date();
+    interval = setInterval(startTimer, 1);
   }
-
-  start();
 
   function startTimer() {
     const currentTime = new Date(),
@@ -72,17 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return arrayOfNumbers.sort(() => Math.random() - 0.5);
   }
 
-  const gameContainer = calculateGameContainerWidthBasedOnHeight();
-  const cube = calculateWidthAndHeightForCubes(gameContainer.width, gameContainer.height, numberOfCubes);
-  const fontSize = calculateCubeFontSize(cube.height);
-  const colors = generateRandomColor(numberOfCubes);
-  const tileValues = generateArrayOfTileValues(numberOfCubes);
-
-  const gameElement = document.getElementById("game");
-
-  gameElement.style.width = gameContainer.width + "px";
-  gameElement.style.height = gameContainer.height + "px";
-
   function appendCustomStylesToElement(card, cube) {
     card.innerText = "*";
     card.classList.add("box");
@@ -102,20 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
         appendToFlippedArrayAndCheckIfTheyAreSame(card);
       }
       if (checkIfGameIsDone()) {
-        console.log("MIKaa")
-        flipAllCards(card);
+        clearInterval(interval);
       }
-
-
     });
-  }
-
-  function flipAllCards(card) {
-      setTimeout(() => {
-      card.style.background = "red";
-      card.innerText = "*";
-    }, 500);
-
   }
 
   function flipCube(card, cardIndex) {
@@ -172,7 +146,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  const gameContainer = calculateGameContainerWidthBasedOnHeight();
+  const cube = calculateWidthAndHeightForCubes(gameContainer.width, gameContainer.height, numberOfCubes);
+  const fontSize = calculateCubeFontSize(cube.height);
+  const colors = generateRandomColor(numberOfCubes);
+  const tileValues = generateArrayOfTileValues(numberOfCubes);
+
+  const gameElement = document.getElementById("game");
+  gameElement.style.width = gameContainer.width + "px";
+  gameElement.style.height = gameContainer.height + "px";
+
   generateCubsInGameElement(cube, numberOfCubes);
+  start();
   startTimer();
 });
 
