@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function countdown() {
-
     let seconds = 10;
+
     let timer = setInterval(function () {
       const currentTime = new Date();
       seconds--;

@@ -55,7 +55,7 @@ body {
 
 #countdown {
   position: absolute;
-  bottom: 10px;
+  bottom: 50px;
   left: 10px;
   font-size: 25pt;
   font-family: 'Share Tech Mono';
