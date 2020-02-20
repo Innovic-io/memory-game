@@ -17,7 +17,7 @@ body {
 .box {
   box-shadow: 0 0 2px 1px rgba(255,255,255,0.75);
   text-align: center;
-  background-color: red;
+  background-color: lightseagreen;
   color: white;
   display: inline-block;
   cursor: pointer;
@@ -30,7 +30,7 @@ body {
 }
 
 .box:hover{
-  background-color: #911004;
+  background-color: #127974 ;
 }
 
 .resolved  {

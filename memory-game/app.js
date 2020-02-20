@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function restartCard(card) {
     setTimeout(() => {
-      card.style.background = "red";
+      card.style.background = "lightseagreen";
       card.innerText = "*";
     }, 500);
   }
