@@ -133,10 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function flipAllCards() {
-    setTimeout(() => {
-      // card.style.background = "lightseagreen";
-      // card.innerText = "?";
-    }, 10000);
+
+    const card =  document.getElementsByClassName("box");
+    for(let i = 0; i< card.length; i++)
+    {
+      card[i].style.background = "lightseagreen";
+      card[i].innerText = "?";
+    }
+
   }
 
   function markCardAsResolved(card) {
@@ -194,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
   start();
   startTimer();
   countdown();
-  flipAllCards();
+  setTimeout(()=>{flipAllCards()}, 10000);
 });
 
 
