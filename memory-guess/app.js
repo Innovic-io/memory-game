@@ -28,6 +28,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  function countdown() {
+
+    let seconds = 10;
+    let timer = setInterval(function () {
+      const currentTime = new Date();
+      seconds--;
+      document.getElementById("countdown").innerHTML = "00:00:" +
+        (seconds < 10 ? "0" + seconds : seconds);
+      if (seconds <= 0)
+        clearInterval(timer);
+    }, 1000);
+  }
+
   function calculateGameContainerWidthBasedOnHeight() {
 
     return {
@@ -123,6 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   }
 
+
+
   function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
     if (cardFlipped.length === 0) {
       cardFlipped.push(card);
@@ -149,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
       appendCustomStylesToElement(card, cube, i);
       gameElement.appendChild(card);
     }
-
   }
 
   const gameContainer = calculateGameContainerWidthBasedOnHeight();
@@ -165,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateCubsInGameElement(cube, numberOfCubes);
   start();
   startTimer();
-
+  countdown();
 });
 
 
