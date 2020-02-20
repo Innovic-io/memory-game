@@ -2,11 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = isMobileDevice();
   const numberOfCubes = isMobile ? 36 : 64;
   const cardFlipped = [];
-  const numberToGuess = [];
+  let numberToGuess = [];
+  const duplicateNumberToGuess = [];
   let level = 1;
   let startDate = null;
   let interval;
-1
+
   function start() {
     startDate = new Date();
     interval = setInterval(startTimer, 1);
@@ -88,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const arrayOfNumbers = [].concat(...Array(2).fill(arrayToRepeat));
     return arrayOfNumbers.sort(() => Math.random() - 0.5);
+
   }
 
   function appendCustomStylesToElement(card, cube, cardIndex) {
@@ -104,6 +106,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateNumberToGuess(tileValues) {
+    for (tile of tileValues) {
+      if (!duplicateNumberToGuess.includes(tile)) {
+        duplicateNumberToGuess.push(tile);
+      }
+    }
+    for (let i = 0; i < level; i++) {
+      numberToGuess.push(duplicateNumberToGuess[i]);
+    }
+
+    document.getElementById("numberToGuess").innerHTML = "Find number(s): " + numberToGuess;
 
   }
 
@@ -171,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSize = calculateCubeFontSize(cube.height);
   const colors = generateRandomColor(numberOfCubes);
   const tileValues = generateArrayOfTileValues(numberOfCubes);
+  const number = generateNumberToGuess(tileValues);
 
   const gameElement = document.getElementById("game");
   gameElement.style.width = gameContainer.width + "px";
