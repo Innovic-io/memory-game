@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let level = 1;
   let startDate = null;
   let interval;
-
+1
   function start() {
     startDate = new Date();
     interval = setInterval(startTimer, 1);
@@ -77,10 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return arrayOfNumbers.sort(() => Math.random() - 0.5);
   }
 
-  function appendCustomStylesToElement(card, cube) {
-    card.innerText = "?";
-    card.classList.add("box");
+  function appendCustomStylesToElement(card, cube, cardIndex) {
+    const value = tileValues[cardIndex];
+    const color = colors.get(value);
 
+    card.style.background = color;
+    card.innerText = value.toString();
+    card.classList.add("box");
     card.style.fontSize = fontSize + "px";
     card.style.lineHeight = cube.height + "px";
     card.style.height = cube.height + "px";
@@ -139,12 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function generateCubsInGameElement(cube, numberOfCubes) {
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
-
-      appendCustomStylesToElement(card, cube);
-      appendClickEventOnCube(card, i);
-
+      appendCustomStylesToElement(card, cube, i);
       gameElement.appendChild(card);
     }
+
   }
 
   const gameContainer = calculateGameContainerWidthBasedOnHeight();
