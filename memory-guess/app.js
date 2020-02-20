@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const arrayOfNumbers = [].concat(...Array(2).fill(arrayToRepeat));
     return arrayOfNumbers.sort(() => Math.random() - 0.5);
-
   }
 
   function appendCustomStylesToElement(card, cube, cardIndex) {
@@ -133,8 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
     card.innerText = value.toString();
   }
 
-  function flipAllCards() {
-
+  function flipAllCards(card) {
+    setTimeout(() => {
+      card.style.background = "lightseagreen";
+      card.innerText = "?";
+    }, 10000);
   }
 
   function markCardAsResolved(card) {
@@ -147,8 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
       card.innerText = "?";
     }, 500);
   }
-
-
 
   function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
     if (cardFlipped.length === 0) {
@@ -175,7 +175,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       appendCustomStylesToElement(card, cube, i);
       gameElement.appendChild(card);
+      flipAllCards(card);
     }
+
   }
 
   const gameContainer = calculateGameContainerWidthBasedOnHeight();
