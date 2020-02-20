@@ -108,6 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
     card.innerText = value.toString();
   }
 
+  function flipAllCards() {
+
+  }
+
   function markCardAsResolved(card) {
     card.classList.add("resolved");
   }
@@ -161,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateCubsInGameElement(cube, numberOfCubes);
   start();
   startTimer();
+
 });
 
 
