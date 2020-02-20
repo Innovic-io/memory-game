@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = isMobileDevice();
   const numberOfCubes = isMobile ? 36 : 64;
   const cardFlipped = [];
+  const numberToGuess = [];
+  let level = 1;
   let startDate = null;
   let interval;
 
@@ -85,6 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
     card.style.width = cube.width + "px";
   }
 
+  function generateNumberToGuess(tileValues) {
+
+  }
+
   function appendClickEventOnCube(card, index) {
     card.addEventListener('click', () => {
       console.log(index);
@@ -109,8 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
       card.innerText = "?";
     }, 500);
   }
-
-
 
   function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
     if (cardFlipped.length === 0) {
@@ -138,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       appendCustomStylesToElement(card, cube);
       appendClickEventOnCube(card, i);
-
 
       gameElement.appendChild(card);
     }
