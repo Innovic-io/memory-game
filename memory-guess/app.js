@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
   startTimer();
   countdown();
   setTimeout(()=>{flipAllCards()}, 10000);
+  
 });
 
 
