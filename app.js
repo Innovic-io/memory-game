@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const numberOfCubes = 36;
   const cardFlipped = [];
+  const cardArray = [];
 
   function startTimer() {
   }
@@ -76,9 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
         flipCube(card, index);
 
         appendToFlippedArrayAndCheckIfTheyAreSame(card);
-        checkIfGameIsDone();
+        if (checkIfGameIsDone()) {
+          //cardArray.push(card);
+          //console.log(cardArray)
+          flipAllCards(card);
+
+        }
       }
     });
+  }
+
+  function flipAllCards(card) {
+   // for(element of cardArray) {
+      element.style.background = "red";
+      element.innerText = "*";
+   // }
   }
 
   function flipCube(card, cardIndex) {
@@ -109,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardFlipped.push(card);
       return;
     }
-    if (cardFlipped.length === 1) {
+    if (cardFlipped.length === 1 && cardFlipped.indexOf(card) === -1) {
       cardFlipped.push(card);
       if (cardFlipped[0].innerText === cardFlipped[1].innerText) {
         markCardAsResolved(cardFlipped[0]);
@@ -127,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function generateCubsInGameElement(cube, numberOfCubes) {
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
-
+      card.classList.add(tileValues[i]);
       appendCustomStylesToElement(card, cube);
       appendClickEventOnCube(card, i);
 
