@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function appendCustomStylesToElement(card, cube) {
     card.innerText = "*";
     card.classList.add("box");
+
     card.style.fontSize = fontSize + "px";
     card.style.lineHeight = cube.height + "px";
     card.style.height = cube.height + "px";
@@ -99,20 +100,22 @@ document.addEventListener("DOMContentLoaded", () => {
         flipCube(card, index);
 
         appendToFlippedArrayAndCheckIfTheyAreSame(card);
-        checkIfGameIsDone();
       }
-      /*if(checkIfGameIsDone()){
-        setTimeout( () => {
-        console.log("Done.");
+      if (checkIfGameIsDone()) {
+        console.log("MIKaa")
         flipAllCards(card);
-        }, 250);
-      } */
+      }
+
+
     });
   }
 
   function flipAllCards(card) {
+      setTimeout(() => {
       card.style.background = "red";
       card.innerText = "*";
+    }, 500);
+
   }
 
   function flipCube(card, cardIndex) {
@@ -143,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardFlipped.push(card);
       return;
     }
-    if (cardFlipped.length === 1) {
+    if (cardFlipped.length === 1 && cardFlipped.indexOf(card) === -1) {
       cardFlipped.push(card);
       if (cardFlipped[0].innerText === cardFlipped[1].innerText) {
         markCardAsResolved(cardFlipped[0]);
