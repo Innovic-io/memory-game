@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function appendCustomStylesToElement(card, cube) {
-    card.innerText = "*";
+    card.innerText = "?";
     card.classList.add("box");
 
     card.style.fontSize = fontSize + "px";
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function restartCard(card) {
     setTimeout(() => {
       card.style.background = "lightseagreen";
-      card.innerText = "*";
+      card.innerText = "?";
     }, 500);
   }
 
