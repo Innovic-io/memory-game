@@ -124,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
   function flipCube(card, cardIndex) {
     const value = tileValues[cardIndex];
     const color = colors.get(value);
@@ -176,20 +175,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const isDone = checkIfResultIsCorrect();
 
       if (cardFlippedIndex.length === level * 2)  {
-        console.log(isDone);
+
         if (isDone) {
           level += 1;
         } else {
           level = 1;
+          drawGameOver();
+          return;
         }
+
         cardFlippedIndex.length = 0;
 
         setTimeout(() => {
           tileValues = generateArrayOfTileValues(numberOfCubes);
           generateCubsInGameElement(cube, numberOfCubes);
           numberToGuess = generateNumberToGuess(tileValues);
-
           countdown();
+
           setTimeout(() => {
             flipAllCards();
             countdown();
@@ -200,18 +202,44 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function drawGameOver() {
-    const letters = ['G', 'A', 'M', 'E'];
-    const beginWidth = document.querySelector('#game').getBoundingClientRect().left + 1 + cube.width * 2;
-    const beginHeight = document.querySelector('#game').getBoundingClientRect().top + cube.width * 3;
+    const lettersGame = ['G', 'A', 'M', 'E'];
+    const lettersOver = ['O', 'V', 'E', 'R'];
+    const playSymbol = ['▶'];
+    const cards = document.getElementsByClassName("box");
 
-    const card = document.getElementsByClassName("box");
-    for (let i = 0; i < card.length; i++) {
-      if (card[i].getBoundingClientRect().left === beginWidth && card[i].getBoundingClientRect().top === beginHeight) {
-        card[i].style.background = "red";
-        card[i].innerText = "G";
-      }
+    let startPosition = calculateStartPosition(1);
+
+    for (const letter of lettersGame) {
+      drawGameOverCards(cards[startPosition], letter, "red");
+      startPosition++;
     }
 
+    startPosition = calculateStartPosition(0);
+
+    for (const letter of lettersOver) {
+      drawGameOverCards(cards[startPosition], letter, "red");
+      startPosition++;
+    }
+
+    startPosition = calculateStartPosition(-1);
+
+    for (const letter of playSymbol) {
+      drawGameOverCards(cards[startPosition], letter, "green");
+      startPosition++;
+    }
+  }
+
+  function drawGameOverCards(card, letter, color) {
+    card.innerHTML = letter;
+    card.style.background = color;
+  }
+
+  function calculateStartPosition(row) {
+    const sqrt = Math.sqrt(numberOfCubes);
+    const startHorizontal = ( sqrt / 2 ) - 2;
+    const startVertical = ( sqrt / 2 ) - row;
+
+    return (startVertical * sqrt) + startHorizontal;
   }
 
   function drawStart() {
