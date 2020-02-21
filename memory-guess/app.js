@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  
   function flipCube(card, cardIndex) {
     const value = tileValues[cardIndex];
     const color = colors.get(value);
