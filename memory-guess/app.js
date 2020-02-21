@@ -182,11 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
           generateCubsInGameElement(cube, numberOfCubes);
-          generateNumberToGuess(tileValues);
+          numberToGuess = generateNumberToGuess(tileValues);
           countdown();
           setTimeout(() => {
             flipAllCards();
-          }, 5000)
+          }, 15000)
         }, 1000)
       }
     }
@@ -195,9 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function drawGameOver() {
 
   }
-  
+
   function drawStart() {
-    
+
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSize = calculateCubeFontSize(cube.height);
   const colors = generateRandomColor(numberOfCubes);
   const tileValues = generateArrayOfTileValues(numberOfCubes);
-  const numberToGuess = generateNumberToGuess();
+  let numberToGuess = generateNumberToGuess();
 
   const gameElement = document.getElementById("game");
   gameElement.style.width = gameContainer.width + "px";
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(() => {
     flipAllCards()
-  }, 10000);
+  }, 15000);
 });
 
 
