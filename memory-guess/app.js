@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = isMobileDevice();
   const numberOfCubes = isMobile ? 36 : 64;
   const cardFlippedIndex = [];
-  const duplicateNumberToGuess = [];
   let level = 1;
   let startDate = null;
   let interval;
@@ -82,13 +81,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return colorMap;
   }
 
-  function generateArrayOfTileValues(numberOfCubes) {
+  function generateArrayOfTileValues(numberOfCubes, shouldDuplicate = true) {
     const arrayToRepeat = [];
     for (let i = 1; i <= numberOfCubes / 2; i++) {
       arrayToRepeat.push(i);
     }
 
-    const arrayOfNumbers = [].concat(...Array(2).fill(arrayToRepeat));
+    const arrayLength = shouldDuplicate ? 2 : 1;
+    const arrayOfNumbers = [].concat(...Array(arrayLength).fill(arrayToRepeat));
     return arrayOfNumbers.sort(() => Math.random() - 0.5);
   }
 
@@ -104,20 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
     card.style.width = cube.width + "px";
   }
 
-  function generateNumberToGuess(tileValues) {
-    const numberToGuess = [];
-
-    for (const tile of tileValues) {
-      if (!duplicateNumberToGuess.includes(tile)) {
-        duplicateNumberToGuess.push(tile);
-      }
-    }
-    for (let i = 0; i < level; i++) {
-      numberToGuess.push(duplicateNumberToGuess[i]);
-    }
+  function generateNumberToGuess() {
+    const numberToGuess = generateArrayOfTileValues(numberOfCubes, false)
+      .slice(0, level);
 
     numberToGuess.sort(sortArrayByValues);
-    document.getElementById("numberToGuess").innerHTML = "Find number(s): " + numberToGuess;
+    document.getElementById("numberToGuess").innerHTML = "Find: " + numberToGuess;
 
     return numberToGuess;
   }
@@ -145,17 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
       card[i].innerText = "?";
      card[i].classList.remove("notAllowedClick");
     }
-  }
-
-  function markCardAsResolved(card) {
-    card.classList.add("resolved");
-  }
-
-  function restartCard(card) {
-    setTimeout(() => {
-      card.style.background = "lightseagreen";
-      card.innerText = "?";
-    }, 500);
   }
 
   function sortArrayByValues(a, b) {
@@ -218,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       appendCustomStylesToElement(card, cube, i);
       appendClickEventOnCube(card, i);
-
+      document.getElementById("level").innerHTML = "Level: " + level;
       gameElement.appendChild(card);
     }
   }
@@ -228,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSize = calculateCubeFontSize(cube.height);
   const colors = generateRandomColor(numberOfCubes);
   const tileValues = generateArrayOfTileValues(numberOfCubes);
-  const numberToGuess = generateNumberToGuess(tileValues);
+  const numberToGuess = generateNumberToGuess();
 
   const gameElement = document.getElementById("game");
   gameElement.style.width = gameContainer.width + "px";
@@ -241,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(() => {
     flipAllCards()
-  }, 5000);
+  }, 10000);
 });
 
 
