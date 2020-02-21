@@ -192,6 +192,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function drawGameOver() {
+
+  }
+  
+  function drawStart() {
+    
+  }
+
   function generateCubsInGameElement(cube, numberOfCubes) {
     gameElement.innerHTML = "";
 
