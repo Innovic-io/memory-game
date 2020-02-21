@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const isMobile = isMobileDevice();
   const numberOfCubes = isMobile ? 36 : 64;
   const cardFlippedIndex = [];
-  const cardFlippedInteger = [];
   const duplicateNumberToGuess = [];
   let level = 1;
   let startDate = null;
