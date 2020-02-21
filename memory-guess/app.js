@@ -184,8 +184,10 @@ document.addEventListener("DOMContentLoaded", () => {
         cardFlippedIndex.length = 0;
 
         setTimeout(() => {
+          tileValues = generateArrayOfTileValues(numberOfCubes);
           generateCubsInGameElement(cube, numberOfCubes);
           numberToGuess = generateNumberToGuess(tileValues);
+
           countdown();
           setTimeout(() => {
             flipAllCards();
@@ -220,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cube = calculateWidthAndHeightForCubes(gameContainer.width, gameContainer.height, numberOfCubes);
   const fontSize = calculateCubeFontSize(cube.height);
   const colors = generateRandomColor(numberOfCubes);
-  const tileValues = generateArrayOfTileValues(numberOfCubes);
+  let tileValues = generateArrayOfTileValues(numberOfCubes);
   let numberToGuess = generateNumberToGuess();
 
   const gameElement = document.getElementById("game");
