@@ -5,10 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let level = 1;
   let startDate = null;
   let interval;
-  let seconds = 10;
 
-
-  let miliseconds = seconds * 1000;
+  const seconds = 10;
+  let milliseconds = seconds * 1000;
+  let timer;
 
   function start() {
     startDate = new Date();
@@ -28,39 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
       (min > 9 ? min : "0" + min) + ":" +
       (sec > 9 ? sec : "0" + sec) + "." +
       (ms > 99 ? ms : ms > 9 ? "0" + ms : "00" + ms);
-
   }
 
   function countdown() {
+    let secondsRemaining = seconds * level;
+    clearInterval(timer);
 
-let seconds1 = seconds * level;
-    let timer = setInterval(function () {
-      seconds1--;
-      document.getElementById("countdown").innerHTML = "00:00:" + (seconds1 < 10 ? "0" + seconds1 : seconds1);
-      if (seconds1 <= 0) {
+    timer = setInterval( () => {
+      secondsRemaining--;
+      document.getElementById("countdown").innerHTML = "00:00:" + (secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining);
+      if (secondsRemaining <= 0) {
         clearInterval(timer);
       }
     }, 1000);
   }
-  function gameTimer() {
-
-    let seconds1 = seconds * level;
-    let timer = setInterval(function () {
-      seconds1--;
-      document.getElementById("countdown").innerHTML = "00:00:" + (seconds1 < 10 ? "0" + seconds1 : seconds1);
-      if (seconds1 <= 0) {
-        clearInterval(timer);
-        timer = 0;
-      }
-      if(document.getElementsByClassName("notAllowedClick") === level * 2) {
-     // console.log(cardFlippedIndex.length );
-          clearInterval(timer);
-          timer = 0;
-      }
-
-    }, 1000);
-  }
-
 
   function calculateGameContainerWidthBasedOnHeight() {
 
@@ -157,7 +138,7 @@ let seconds1 = seconds * level;
     for (let i = 0; i < card.length; i++) {
       card[i].style.background = "lightseagreen";
       card[i].innerText = "?";
-     card[i].classList.remove("notAllowedClick");
+      card[i].classList.remove("notAllowedClick");
     }
   }
 
@@ -193,7 +174,7 @@ let seconds1 = seconds * level;
       cardFlippedIndex.push(cardIndex);
       const isDone = checkIfResultIsCorrect();
 
-      if (cardFlippedIndex.length === level * 2)  {
+      if (cardFlippedIndex.length === level * 2) {
         console.log(isDone);
         if (isDone) {
           level += 1;
@@ -202,14 +183,14 @@ let seconds1 = seconds * level;
         }
         cardFlippedIndex.length = 0;
 
-          setTimeout(() => {
+        setTimeout(() => {
           generateCubsInGameElement(cube, numberOfCubes);
           numberToGuess = generateNumberToGuess(tileValues);
           countdown();
           setTimeout(() => {
             flipAllCards();
-            gameTimer();
-          }, level*miliseconds)
+            countdown();
+          }, level * milliseconds)
         }, 1000)
       }
     }
@@ -253,9 +234,8 @@ let seconds1 = seconds * level;
 
   setTimeout(() => {
     flipAllCards();
-    gameTimer();
-
-  }, miliseconds*level);
+    countdown();
+  }, milliseconds * level);
 
 });
 
