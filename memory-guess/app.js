@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function appendCustomStylesToElement(card, cube, cardIndex) {
     const value = tileValues[cardIndex];
     const color = colors.get(value);
-
     card.style.background = color;
     card.innerText = value.toString();
     card.classList.add("box");
@@ -103,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.style.lineHeight = cube.height + "px";
     card.style.height = cube.height + "px";
     card.style.width = cube.width + "px";
+   card.classList.add("notAllovedClick");
   }
 
   function generateNumberToGuess(tileValues) {
@@ -133,17 +133,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function flipCube(card, cardIndex) {
     const value = tileValues[cardIndex];
     const color = colors.get(value);
-
     card.style.background = color;
     card.innerText = value.toString();
+    card.classList.add("notAllovedClick");
   }
 
   function flipAllCards() {
     const card = document.getElementsByClassName("box");
-
     for (let i = 0; i < card.length; i++) {
       card[i].style.background = "lightseagreen";
       card[i].innerText = "?";
+     card[i].classList.remove("notAllovedClick");
     }
   }
 
@@ -167,10 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (a == null || b == null) return false;
     if (a.length != b.length) return false;
 
-    // If you don't care about the order of the elements inside
-    // the array, you should sort both arrays here.
-    // Please note that calling sort on an array will modify that array.
-    // you might want to clone your array first.
 
     for (let i = 0; i < a.length; ++i) {
       if (a[i] !== b[i]) return false;
@@ -196,6 +192,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (cardFlippedIndex.length === level * 2)  {
         console.log(isDone);
+
+      }
+      else {
+
+
       }
     }
   }
@@ -228,7 +229,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(() => {
     flipAllCards()
-  }, 3000);
+  }, 10000);
+
 });
 
 
