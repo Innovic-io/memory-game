@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let level = 1;
   let startDate = null;
   let interval;
+  let seconds = 10;
+
+
+  let miliseconds = seconds * 1000;
 
   function start() {
     startDate = new Date();
@@ -28,17 +32,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function countdown() {
-    let seconds = 5;
 
+let seconds1 = seconds * level;
     let timer = setInterval(function () {
-      const currentTime = new Date();
-      seconds--;
-      document.getElementById("countdown").innerHTML = "00:00:" + (seconds < 10 ? "0" + seconds : seconds);
-      if (seconds <= 0) {
+      seconds1--;
+      document.getElementById("countdown").innerHTML = "00:00:" + (seconds1 < 10 ? "0" + seconds1 : seconds1);
+      if (seconds1 <= 0) {
         clearInterval(timer);
       }
     }, 1000);
   }
+  function gameTimer() {
+
+    let seconds1 = seconds * level;
+    let timer = setInterval(function () {
+      seconds1--;
+      document.getElementById("countdown").innerHTML = "00:00:" + (seconds1 < 10 ? "0" + seconds1 : seconds1);
+      if (seconds1 <= 0) {
+        clearInterval(timer);
+        timer = 0;
+      }
+      if(document.getElementsByClassName("notAllowedClick") === level * 2) {
+     // console.log(cardFlippedIndex.length );
+          clearInterval(timer);
+          timer = 0;
+      }
+
+    }, 1000);
+  }
+
 
   function calculateGameContainerWidthBasedOnHeight() {
 
@@ -180,13 +202,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         cardFlippedIndex.length = 0;
 
-        setTimeout(() => {
+          setTimeout(() => {
           generateCubsInGameElement(cube, numberOfCubes);
           numberToGuess = generateNumberToGuess(tileValues);
           countdown();
           setTimeout(() => {
             flipAllCards();
-          }, 15000)
+            gameTimer();
+          }, level*miliseconds)
         }, 1000)
       }
     }
@@ -229,8 +252,11 @@ document.addEventListener("DOMContentLoaded", () => {
   countdown();
 
   setTimeout(() => {
-    flipAllCards()
-  }, 15000);
+    flipAllCards();
+    gameTimer();
+
+  }, miliseconds*level);
+
 });
 
 
