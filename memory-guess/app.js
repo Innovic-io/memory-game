@@ -140,13 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function flipAllCards() {
-
     const card = document.getElementsByClassName("box");
+
     for (let i = 0; i < card.length; i++) {
       card[i].style.background = "lightseagreen";
       card[i].innerText = "?";
     }
-
   }
 
   function markCardAsResolved(card) {
@@ -194,12 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function appendToFlippedArrayAndCheckIfTheyAreSame(cardIndex) {
     if (cardFlippedIndex.length < level * 2) {
       cardFlippedIndex.push(cardIndex);
-      const a = checkIfResultIsCorrect();
-      console.log(a);
-      return;
-    }
+      const isDone = checkIfResultIsCorrect();
 
-    checkIfResultIsCorrect();
+      if (cardFlippedIndex.length === level * 2)  {
+        console.log(isDone);
+      }
+    }
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
