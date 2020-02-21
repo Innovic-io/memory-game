@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const isMobile = isMobileDevice();
   const numberOfCubes = isMobile ? 36 : 64;
-  const cardFlipped = [];
+  const cardFlippedIndex = [];
   const cardFlippedInteger = [];
-  let numberToGuess = [];
   const duplicateNumberToGuess = [];
   let level = 1;
   let startDate = null;
@@ -108,7 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateNumberToGuess(tileValues) {
-    for (tile of tileValues) {
+    const numberToGuess = [];
+
+    for (const tile of tileValues) {
       if (!duplicateNumberToGuess.includes(tile)) {
         duplicateNumberToGuess.push(tile);
       }
@@ -117,14 +118,16 @@ document.addEventListener("DOMContentLoaded", () => {
       numberToGuess.push(duplicateNumberToGuess[i]);
     }
 
+    numberToGuess.sort(sortArrayByValues);
     document.getElementById("numberToGuess").innerHTML = "Find number(s): " + numberToGuess;
 
+    return numberToGuess;
   }
 
   function appendClickEventOnCube(card, index) {
     card.addEventListener('click', () => {
       flipCube(card, index);
-      appendToFlippedArrayAndCheckIfTheyAreSame(card);
+      appendToFlippedArrayAndCheckIfTheyAreSame(index);
     });
   }
 
@@ -157,46 +160,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   }
 
-  function appendToFlippedArrayAndCheckIfTheyAreSame(card) {
+  function sortArrayByValues(a, b) {
+    return a > b ? 1 : -1;
+  }
 
-    for (let i = 1; i <= numberOfCubes / 2; i++) {
-      if (level === i) {
-        if (cardFlipped.length < level * 2) {
-          cardFlipped.push(card.innerText);
-          return;
-        }
-        for (const element of cardFlipped) {
-          if (cardFlippedInteger.length < level * 2) {
-            cardFlippedInteger.push(parseInt(element));
-          }
-        }
-        const uniqSortedCardFlippedInteger = [...new Set(cardFlippedInteger)].sort((a, b) => a - b);
-        console.log(cardFlippedInteger);
-        console.log(uniqSortedCardFlippedInteger);
-        const sortedNumberToGuess = numberToGuess.sort((a, b) => a - b);
-        console.log(sortedNumberToGuess);
-        if (sortedNumberToGuess.length !== uniqSortedCardFlippedInteger.length) {
-          return console.log(false);
-        }
-        for (let j = 0; j < uniqSortedCardFlippedInteger.length; ++j) {
-          if (sortedNumberToGuess[j] !== uniqSortedCardFlippedInteger[j])
-            return console.log(false);
+  function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length != b.length) return false;
 
-        }
-        return console.log(true);
+    // If you don't care about the order of the elements inside
+    // the array, you should sort both arrays here.
+    // Please note that calling sort on an array will modify that array.
+    // you might want to clone your array first.
 
-      }
-
-
+    for (let i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false;
     }
+    return true;
+  }
+
+  function checkIfResultIsCorrect() {
+    if (cardFlippedIndex.length === level * 2) {
+      const cardFlippedValues = cardFlippedIndex.map(index => tileValues[index]);
+      cardFlippedValues.sort(sortArrayByValues);
+
+      return arraysEqual([...new Set(cardFlippedValues)], numberToGuess);
+    }
+
+    return false;
+  }
+
+  function appendToFlippedArrayAndCheckIfTheyAreSame(cardIndex) {
+    if (cardFlippedIndex.length < level * 2) {
+      cardFlippedIndex.push(cardIndex);
+      const a = checkIfResultIsCorrect();
+      console.log(a);
+      return;
+    }
+
+    checkIfResultIsCorrect();
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
       appendCustomStylesToElement(card, cube, i);
-      gameElement.appendChild(card);
       appendClickEventOnCube(card, i);
+
+      gameElement.appendChild(card);
     }
   }
 
@@ -205,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fontSize = calculateCubeFontSize(cube.height);
   const colors = generateRandomColor(numberOfCubes);
   const tileValues = generateArrayOfTileValues(numberOfCubes);
-  const number = generateNumberToGuess(tileValues);
+  const numberToGuess = generateNumberToGuess(tileValues);
 
   const gameElement = document.getElementById("game");
   gameElement.style.width = gameContainer.width + "px";
@@ -215,10 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
   start();
   startTimer();
   countdown();
+
   setTimeout(() => {
     flipAllCards()
   }, 3000);
-
 });
 
 
