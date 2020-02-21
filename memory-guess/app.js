@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function countdown() {
-    let seconds = 10;
+    let seconds = 5;
 
     let timer = setInterval(function () {
       const currentTime = new Date();
@@ -97,12 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const color = colors.get(value);
     card.style.background = color;
     card.innerText = value.toString();
-    card.classList.add("box");
+    card.classList.add(...["box", "notAllowedClick"]);
     card.style.fontSize = fontSize + "px";
     card.style.lineHeight = cube.height + "px";
     card.style.height = cube.height + "px";
     card.style.width = cube.width + "px";
-   card.classList.add("notAllovedClick");
   }
 
   function generateNumberToGuess(tileValues) {
@@ -133,9 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function flipCube(card, cardIndex) {
     const value = tileValues[cardIndex];
     const color = colors.get(value);
+
     card.style.background = color;
     card.innerText = value.toString();
-    card.classList.add("notAllovedClick");
+    card.classList.add("notAllowedClick");
   }
 
   function flipAllCards() {
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < card.length; i++) {
       card[i].style.background = "lightseagreen";
       card[i].innerText = "?";
-     card[i].classList.remove("notAllovedClick");
+     card[i].classList.remove("notAllowedClick");
     }
   }
 
@@ -192,16 +192,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (cardFlippedIndex.length === level * 2)  {
         console.log(isDone);
+        if (isDone) {
+          level += 1;
+        } else {
+          level = 1;
+        }
+        cardFlippedIndex.length = 0;
 
-      }
-      else {
-
-
+        setTimeout(() => {
+          generateCubsInGameElement(cube, numberOfCubes);
+          generateNumberToGuess(tileValues);
+          countdown();
+          setTimeout(() => {
+            flipAllCards();
+          }, 5000)
+        }, 1000)
       }
     }
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
+    gameElement.innerHTML = "";
+
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
       appendCustomStylesToElement(card, cube, i);
@@ -229,8 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setTimeout(() => {
     flipAllCards()
-  }, 10000);
-
+  }, 5000);
 });
 
 

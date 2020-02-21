@@ -33,8 +33,7 @@ body {
   background-color: #127974 ;
 }
 
-.notAllovedClick {
-
+.notAllowedClick {
   pointer-events: none;
 }
 
