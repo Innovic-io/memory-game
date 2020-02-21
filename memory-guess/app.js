@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardFlippedIndex.push(cardIndex);
       const isDone = checkIfResultIsCorrect();
 
-      if (cardFlippedIndex.length === level * 2) {
+      if (cardFlippedIndex.length === level * 2)  {
         console.log(isDone);
         if (isDone) {
           level += 1;
@@ -199,6 +199,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function drawGameOver() {
+    const letters = ['G', 'A', 'M', 'E'];
+    const beginWidth = document.querySelector('#game').getBoundingClientRect().left + 1 + cube.width * 2;
+    const beginHeight = document.querySelector('#game').getBoundingClientRect().top + cube.width * 3;
+
+    const card = document.getElementsByClassName("box");
+    for (let i = 0; i < card.length; i++) {
+      if (card[i].getBoundingClientRect().left === beginWidth && card[i].getBoundingClientRect().top === beginHeight) {
+        card[i].style.background = "red";
+        card[i].innerText = "G";
+      }
+    }
 
   }
 
@@ -216,6 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("level").innerHTML = "Level: " + level;
       gameElement.appendChild(card);
     }
+
   }
 
   const gameContainer = calculateGameContainerWidthBasedOnHeight();
