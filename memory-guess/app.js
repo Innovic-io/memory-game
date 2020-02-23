@@ -85,6 +85,20 @@ document.addEventListener("DOMContentLoaded", () => {
     return colorMap;
   }
 
+  function shuffle(array) {
+    let arrayLength = array.length;
+    let temp, index;
+
+    while (arrayLength > 0) {
+      index = Math.floor(Math.random() * arrayLength);
+      arrayLength--;
+      temp = array[arrayLength];
+      array[arrayLength] = array[index];
+      array[index] = temp;
+    }
+    return array;
+  }
+
   function generateArrayOfTileValues(numberOfCubes, shouldDuplicate = true) {
     const arrayToRepeat = [];
     for (let i = 1; i <= numberOfCubes / 2; i++) {
@@ -93,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const arrayLength = shouldDuplicate ? 2 : 1;
     const arrayOfNumbers = [].concat(...Array(arrayLength).fill(arrayToRepeat));
-    return arrayOfNumbers.sort(() => Math.random() - 0.5);
+    return shuffle(arrayOfNumbers);
   }
 
   function appendCustomStylesToElement(card, cube, cardIndex) {
@@ -125,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
+
   function flipCube(card, cardIndex) {
     const value = tileValues[cardIndex];
     const color = colors.get(value);
@@ -192,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cardFlippedIndex.length < level * 2) {
       cardFlippedIndex.push(cardIndex);
       const isDone = checkIfResultIsCorrect();
-     // const cards = document.getElementsByClassName("box");
+      // const cards = document.getElementsByClassName("box");
 
       if (cardFlippedIndex.length === level * 2) {
 
@@ -317,14 +331,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   generateCubsInGameElement(cube, numberOfCubes);
   drawPlay();
- // start();
+  // start();
   //startTimer();
   //countdown();
 
- /* setTimeout(() => {
-    flipAllCards();
-    countdown();
-  }, milliseconds * level);*/
+  /* setTimeout(() => {
+     flipAllCards();
+     countdown();
+   }, milliseconds * level);*/
 
 });
 
