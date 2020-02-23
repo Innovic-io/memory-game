@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let level = 1;
   let startDate = null;
   let interval;
-
   const seconds = 10;
   let milliseconds = seconds * 1000;
   let timer;
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let secondsRemaining = seconds * level;
     clearInterval(timer);
 
-    timer = setInterval( () => {
+    timer = setInterval(() => {
       secondsRemaining--;
       document.getElementById("countdown").innerHTML = "00:00:" + (secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining);
       if (secondsRemaining <= 0) {
@@ -169,34 +168,40 @@ document.addEventListener("DOMContentLoaded", () => {
     return false;
   }
 
+  function restartGame() {
+    cardFlippedIndex.length = 0;
+
+    setTimeout(() => {
+      tileValues = generateArrayOfTileValues(numberOfCubes);
+      generateCubsInGameElement(cube, numberOfCubes);
+      numberToGuess = generateNumberToGuess(tileValues);
+      countdown();
+
+      setTimeout(() => {
+        flipAllCards();
+        countdown();
+      }, level * milliseconds)
+    }, 200)
+  }
+
   function appendToFlippedArrayAndCheckIfTheyAreSame(cardIndex) {
     if (cardFlippedIndex.length < level * 2) {
       cardFlippedIndex.push(cardIndex);
       const isDone = checkIfResultIsCorrect();
+      const cards = document.getElementsByClassName("box");
 
-      if (cardFlippedIndex.length === level * 2)  {
+      if (cardFlippedIndex.length === level * 2) {
 
         if (isDone) {
           level += 1;
         } else {
           level = 1;
           drawGameOver();
-          return;
+          //cards.removeEventListener('click', flipCube());
         }
 
-        cardFlippedIndex.length = 0;
+        restartGame();
 
-        setTimeout(() => {
-          tileValues = generateArrayOfTileValues(numberOfCubes);
-          generateCubsInGameElement(cube, numberOfCubes);
-          numberToGuess = generateNumberToGuess(tileValues);
-          countdown();
-
-          setTimeout(() => {
-            flipAllCards();
-            countdown();
-          }, level * milliseconds)
-        }, 1000)
       }
     }
   }
@@ -222,7 +227,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     startPosition = calculateStartPosition(-1);
-
+    cards[startPosition].addEventListener('click', () => {
+      restartGame();
+    });
     for (const letter of playSymbol) {
       drawGameOverCards(cards[startPosition], letter, "green");
       startPosition++;
@@ -236,8 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function calculateStartPosition(row) {
     const sqrt = Math.sqrt(numberOfCubes);
-    const startHorizontal = ( sqrt / 2 ) - 2;
-    const startVertical = ( sqrt / 2 ) - row;
+    const startHorizontal = (sqrt / 2) - 2;
+    const startVertical = (sqrt / 2) - row;
 
     return (startVertical * sqrt) + startHorizontal;
   }
