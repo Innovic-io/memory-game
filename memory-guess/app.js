@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("countdown").innerHTML = "00:00:" + (secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining);
       if (secondsRemaining <= 0) {
         clearInterval(timer);
+        level = 1;
+        drawGameOver();
       }
     }, 1000);
   }
@@ -123,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  
   function flipCube(card, cardIndex) {
     const value = tileValues[cardIndex];
     const color = colors.get(value);
@@ -169,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function restartGame() {
+    generateCubsInGameElement(cube, numberOfCubes);
     cardFlippedIndex.length = 0;
 
     setTimeout(() => {
@@ -188,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cardFlippedIndex.length < level * 2) {
       cardFlippedIndex.push(cardIndex);
       const isDone = checkIfResultIsCorrect();
-      const cards = document.getElementsByClassName("box");
+     // const cards = document.getElementsByClassName("box");
 
       if (cardFlippedIndex.length === level * 2) {
 
@@ -197,9 +201,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           level = 1;
           drawGameOver();
-          //cards.removeEventListener('click', flipCube());
+          return;
         }
-
         restartGame();
 
       }
@@ -213,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cards = document.getElementsByClassName("box");
 
     let startPosition = calculateStartPosition(1);
-
     for (const letter of lettersGame) {
       drawGameOverCards(cards[startPosition], letter, "red");
       startPosition++;
@@ -249,13 +251,49 @@ document.addEventListener("DOMContentLoaded", () => {
     return (startVertical * sqrt) + startHorizontal;
   }
 
-  function drawStart() {
+  function drawPlay() {
+    flipAllCards();
+    const lettersStart = ['P', 'L', 'A', 'Y'];
+    const playSymbol = ['▶'];
+    const cards = document.getElementsByClassName("box");
+
+    let startPosition = calculateStartPosition(1);
+
+    for (const letter of lettersStart) {
+      drawGameOverCards(cards[startPosition], letter, "red");
+      startPosition++;
+    }
+
+    startPosition = calculateStartPosition(0);
+    cards[startPosition].removeEventListener("click", flipCube);
+    cards[startPosition].addEventListener("click", () => {
+      play();
+    });
+
+    for (const letter of playSymbol) {
+      drawGameOverCards(cards[startPosition], letter, "green");
+      startPosition++;
+    }
+
+  }
+
+  function play() {
+    generateCubsInGameElement(cube, numberOfCubes);
+    cardFlippedIndex.length = 0;
+
+    start();
+    startTimer();
+    countdown();
+
+    setTimeout(() => {
+      flipAllCards();
+      countdown();
+    }, milliseconds * level);
 
   }
 
   function generateCubsInGameElement(cube, numberOfCubes) {
     gameElement.innerHTML = "";
-
     for (let i = 0; i < numberOfCubes; i++) {
       const card = document.createElement("div");
       appendCustomStylesToElement(card, cube, i);
@@ -278,14 +316,15 @@ document.addEventListener("DOMContentLoaded", () => {
   gameElement.style.height = gameContainer.height + "px";
 
   generateCubsInGameElement(cube, numberOfCubes);
-  start();
-  startTimer();
-  countdown();
+  drawPlay();
+ // start();
+  //startTimer();
+  //countdown();
 
-  setTimeout(() => {
+ /* setTimeout(() => {
     flipAllCards();
     countdown();
-  }, milliseconds * level);
+  }, milliseconds * level);*/
 
 });
 
