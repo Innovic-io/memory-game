@@ -69,3 +69,17 @@ body {
   font-family: 'Share Tech Mono';
 }
 
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  #level {
+    bottom: 150px;
+  }
+
+  #numberToGuess {
+    bottom: 100px;
+  }
+
+  #countdown {
+    bottom: 50px;
+  }
+}
