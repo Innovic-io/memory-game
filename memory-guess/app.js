@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function gameTimer() {
+    
     let secondsRemaining = seconds * level;
     clearInterval(timer);
 
