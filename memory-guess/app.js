@@ -50,13 +50,22 @@ document.addEventListener("DOMContentLoaded", () => {
       secondsRemaining--;
       document.getElementById("countdown").innerHTML = "00:00:" + (secondsRemaining < 10 ? "0" + secondsRemaining : secondsRemaining);
       if (secondsRemaining <= 0) {
+          flipAllCards();
+          drawGameOver();
+          clearInterval(timer);
+          clearInterval(interval);
+      }
+      if (secondsRemaining <= 0 && cardFlippedIndex.length < level*2) {
+        level = 1;
+        cardFlippedIndex.length = 0;
+        flipAllCards();
         drawGameOver();
         clearInterval(timer);
         clearInterval(interval);
       }
     }, 1000);
   }
-  
+
   function calculateGameContainerWidthBasedOnHeight() {
     return {
       width: isMobile ? window.innerWidth : window.innerHeight,
@@ -227,10 +236,12 @@ document.addEventListener("DOMContentLoaded", () => {
           level += 1;
         } else {
           level = 1;
-          flipAllCards();
-          drawGameOver();
-          clearInterval(timer);
-          clearInterval(interval);
+          setTimeout(() => {
+            flipAllCards();
+            drawGameOver();
+            clearInterval(timer);
+            clearInterval(interval);
+          }, 200);
           return;
         }
         generateNewLevel();
